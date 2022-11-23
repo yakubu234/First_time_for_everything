@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->text('professional_summary');
             $table->text('skills');
-            $table->text('years_of_experience');
+            $table->integer('years_of_experience');
             $table->text('certifications');
             $table->text('educations');
             $table->timestamps();
