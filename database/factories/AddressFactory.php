@@ -21,7 +21,7 @@ class AddressFactory extends Factory
         $max = User::count();
         $min = ($max > 5) ? (($max -5) + 1) : 1;
         return [
-            'user_id' => fake()->unique()->numberBetween($min, $max),
+            'user_id' => fake()->unique(true)->numberBetween($min, $max),
             'address' => fake()->StreetAddress(),
             'city' => fake()->city(),
             'state' => fake()->stateAbbr(),
