@@ -2,16 +2,14 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redis;
-use \Spiritix\LadaCache\Database\LadaCacheTrait;
 use Tests\TestCase;
 
-class AllUserTest extends TestCase
+class singleUserTest extends TestCase
 {
     use DatabaseMigrations, RefreshDatabase;
     use \Spiritix\LadaCache\Database\LadaCacheTrait;
@@ -33,16 +31,16 @@ class AllUserTest extends TestCase
         DB::rollback();
         parent::tearDown();
     }
-
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function testAllUsers()
+    public function testSingleUser()
     {
+        $id = rand(1,200);
         Redis::del('*users*');
-        $response = $this->get('/api/all-users');
+        $response = $this->get('/api/single-user/'.$id);
 
         $response->dump()->assertStatus(200);
     }
