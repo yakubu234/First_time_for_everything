@@ -74,13 +74,10 @@ class Controller extends BaseController
 
     public function getRedisById($id, $range =null)
     {
-        {
             $user = Redis::get("users:{$range}");
             $data = unserialize($user);
 
 
             return $data;
-        }
-
     }
 }
