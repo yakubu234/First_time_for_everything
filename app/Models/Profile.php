@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Profile extends Model
 {
     use HasFactory;
+    use \Spiritix\LadaCache\Database\LadaCacheTrait;
+
 
     protected $fillable = [
         'user_id',

@@ -19,7 +19,7 @@ class AddressFactory extends Factory
     public function definition()
     {
         $max = User::count();
-        $min = ($max > 5) ? (($max -5) + 1) : 1;
+        $min = ($max > 200) ? (($max -200) + 1) : 1;
         return [
             'user_id' => fake()->unique(true)->numberBetween($min, $max),
             'address' => fake()->StreetAddress(),

@@ -19,11 +19,7 @@ class ProfileFactory extends Factory
     public function definition()
     {
         $max = User::count();
-        $min = ($max > 5) ? (($max -5) + 1) : 1;
-
-        // Log::info($max);
-        // Log::info($min);
-        // Log::info($this->faker->unique()->numberBetween($min, $max));
+        $min = ($max > 200) ? (($max -200) + 1) : 1;
 
         return [
             'user_id' => $this->faker->unique(true)->numberBetween($min, $max),
