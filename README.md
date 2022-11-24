@@ -40,13 +40,11 @@ create database YOUR_DATABASE;
 exit;
 ```
 
-## Cache in Laravel
+to migrate all model definitions, do
 
-<!-- In Laravel, the cache is the act of transparently storing data for future use in an attempt to make applications run faster.
-
-You can definitely say that a cache looks like a session. You definitely use them in the same exact way, since you need to provide a key to store them.
-
-Of course, there are differences. `Sessions` are used to store data between page requests while a `cache` is used to cache data per application. Therefore, you usually store stuff like database queries and API calls in your cache. -->
+```bash
+php artisan migrate:fresh
+```
 
 ## Cache Configuration
 
@@ -76,6 +74,34 @@ sudo systemctl restart redis
 ```
 sudo systemctl status redis
 ```
+
+## Run Seeder
+
+use the following command to run the seeder
+
+```bash
+php artisan db:seed
+```
+
+## Run Test
+
+use the following command to run the test
+
+```bash
+php artisan test
+```
+
+endpoint to get all users and a single user
+
+```ruby
+/api/all-users
+```
+
+```bash
+/api/single-user
+```
+
+Right here, you’ll get a json response.
 
 # Credits due where credits due…
 
