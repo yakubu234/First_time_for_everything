@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class Controller extends BaseController
 {
@@ -19,10 +20,13 @@ class Controller extends BaseController
     use \Spiritix\LadaCache\Database\LadaCacheTrait;
 
 
-    public function fetchAll()
+    public function fetchAll(Request $request)
     {
-        if(Redis::exists('users')){
-            $user = Redis::get('users');
+        $id = $request->query('page',1);
+        Redis::del("users:{$id}");
+
+        if(Redis::exists("users:{$id}")){
+            $user = Redis::get("users:{$id}");
             return unserialize($user);
         }
 
@@ -30,23 +34,35 @@ class Controller extends BaseController
 
         if($users->isEmpty()){
             $this->seedData();
-            $this->fetchAll();
+            $users = User::orderBy('id', 'desc')->paginate(10);
         }
 
         $user = AllRecordsResource::collection(
             $users
-        );
-
-        Redis::set('users',serialize($user));
+        )->response()->getData(true);
+        Redis::set("users:{$id}",serialize($user));
 
         return response()->json([
             'data' => $user
         ],200);
     }
 
-    public function fetchOne()
+    public function fetchOne($id)
     {
+        $range = round($id+5, -1);
 
+        if(Redis::exists("users:{$range}"))return $this->getRedisById($id,$range );
+
+        if(Redis::exists("users-single:{$id}"))return $this->getRedisById($id);
+
+        $users = User::where('id', $id)->first();
+        $user = (new AllRecordsResource($users));
+
+        Redis::set("users-single:{$id}",serialize($user));
+
+        return response()->json([
+            'data' => $user
+        ],200);
     }
 
     public function seedData()
@@ -54,5 +70,14 @@ class Controller extends BaseController
         Artisan::call('db:seed');
         Artisan::output();
         return ;
+    }
+
+    public function getRedisById($id, $range =null)
+    {
+            $user = Redis::get("users:{$range}");
+            $data = unserialize($user);
+
+
+            return $data;
     }
 }
