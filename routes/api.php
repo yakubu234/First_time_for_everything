@@ -19,4 +19,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('all-users',[Controller::class, 'fetchAll']);
-Route::get('single-user',[Controller::class, 'fetchOne']);
+Route::get('single-user/{id}',[Controller::class, 'fetchOne']);

@@ -26,9 +26,9 @@ class AllUserTest extends TestCase
      */
     public function testAllUsers()
     {
-        Redis::delete('users');
+        Redis::del('users');
         $response = $this->get('/api/all-users');
 
-        $response->assertStatus(200);
+        $response->dump()->assertStatus(200);
     }
 }
