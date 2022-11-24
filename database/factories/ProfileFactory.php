@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Log;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Profile>
@@ -18,17 +19,16 @@ class ProfileFactory extends Factory
     public function definition()
     {
         $max = User::count();
-        $min = ($max > 5) ? (($max -5) + 1) : 1;
+        $min = ($max > 200) ? (($max -200) + 1) : 1;
+
         return [
-            'user_id' => fake()->unique()->numberBetween($min, $max),
+            'user_id' => $this->faker->unique(true)->numberBetween($min, $max),
             'professional_summary' => 'pareag so much information to be supplied here by the user',
             'skills' => json_encode($this->randomWords()),
             'years_of_experience' => rand(1,10),
             'certifications' =>json_encode($this->randomWords()),
             'educations' => json_encode($this->randomWords()),
         ];
-
-
     }
 
     public function randomWords():array
