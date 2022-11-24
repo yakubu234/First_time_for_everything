@@ -59,9 +59,9 @@ REDIS_PASSWORD=null
 REDIS_PORT=6379
 ```
 
-## Installin Redis-server On Local system
+## Installin Redis-server On Local system (Unix System)
 
-run the following command to install redis-server which gives you a cli interface to confirm the authenticity of redis funtionalty on the local system, restart redis if not started automatically after installation, and check status. All simultaneously
+run the following command to install redis-server which gives you a cli interface to confirm the authenticity of redis funtionalty on the local system, restart redis if not started automatically after installation, and check status. All simultaneously.
 
 ```
 sudo apt-get install redis-server
@@ -74,6 +74,8 @@ sudo systemctl restart redis
 ```
 sudo systemctl status redis
 ```
+
+note the above command is for unix systems. for windows kindly make research on how to install redis-server on windows.
 
 ## Run Seeder
 
